@@ -142,466 +142,38 @@ export default function SquareLanding() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      <style>{`
-        :root {
-          --color-primary: #1f2937;
-          --color-secondary: #6366f1;
-          --color-accent: #0ea5e9;
-          --color-text: #1f2937;
-          --color-text-light: #6b7280;
-          --color-bg: #ffffff;
-          --color-border: #e5e7eb;
-          --spacing-sm: 8px;
-          --spacing-md: 16px;
-          --spacing-lg: 24px;
-          --spacing-xl: 32px;
-          --spacing-2xl: 48px;
-          --spacing-3xl: 64px;
-          --border-radius: 8px;
-          --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-
-        html {
-          scroll-behavior: smooth;
-        }
-
-        body {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-          color: var(--color-text);
-          background-color: var(--color-bg);
-          line-height: 1.6;
-        }
-
-        /* Header */
-        header {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          background: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(10px);
-          z-index: 1000;
-          border-bottom: 1px solid var(--color-border);
-        }
-
-        .header-container {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: var(--spacing-md) var(--spacing-lg);
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .logo {
-          font-size: 24px;
-          font-weight: 700;
-          color: var(--color-primary);
-          text-decoration: none;
-          letter-spacing: -0.5px;
-        }
-
-        nav {
-          display: flex;
-          gap: var(--spacing-2xl);
-          align-items: center;
-        }
-
-        nav a {
-          color: var(--color-text);
-          text-decoration: none;
-          font-size: 14px;
-          font-weight: 500;
-          transition: var(--transition);
-        }
-
-        nav a:hover {
-          color: var(--color-secondary);
-        }
-
-        .btn {
-          padding: 10px 24px;
-          border-radius: var(--border-radius);
-          border: none;
-          font-weight: 600;
-          font-size: 14px;
-          cursor: pointer;
-          transition: var(--transition);
-          text-decoration: none;
-          display: inline-block;
-        }
-
-        .btn-primary {
-          background-color: var(--color-secondary);
-          color: white;
-        }
-
-        .btn-primary:hover {
-          background-color: #4f46e5;
-          transform: translateY(-2px);
-          box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
-        }
-
-        .btn-secondary {
-          background-color: transparent;
-          color: var(--color-secondary);
-          border: 2px solid var(--color-secondary);
-        }
-
-        .btn-secondary:hover {
-          background-color: rgba(99, 102, 241, 0.1);
-        }
-
-        /* Hero Section */
-        .hero {
-          margin-top: 60px;
-          position: relative;
-          height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-        }
-
-        .hero-video {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          z-index: 1;
-        }
-
-        .hero-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(31, 41, 55, 0.2) 100%);
-          z-index: 2;
-        }
-
-        .hero-content {
-          position: relative;
-          z-index: 3;
-          text-align: center;
-          color: white;
-          max-width: 800px;
-          padding: var(--spacing-lg);
-        }
-
-        .hero h1 {
-          font-size: 56px;
-          font-weight: 700;
-          margin-bottom: var(--spacing-lg);
-          line-height: 1.2;
-          letter-spacing: -1px;
-        }
-
-        .hero p {
-          font-size: 20px;
-          margin-bottom: var(--spacing-2xl);
-          opacity: 0.95;
-          font-weight: 300;
-        }
-
-        .hero-buttons {
-          display: flex;
-          gap: var(--spacing-md);
-          justify-content: center;
-          flex-wrap: wrap;
-        }
-
-        .btn-light {
-          background-color: white;
-          color: var(--color-secondary);
-          padding: 12px 32px;
-          font-weight: 600;
-        }
-
-        .btn-light:hover {
-          background-color: #f3f4f6;
-          transform: translateY(-2px);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Section Base */
-        section {
-          padding: var(--spacing-3xl) var(--spacing-lg);
-        }
-
-        .section-container {
-          max-width: 1400px;
-          margin: 0 auto;
-        }
-
-        .section-header {
-          text-align: center;
-          margin-bottom: var(--spacing-3xl);
-        }
-
-        .section-header h2 {
-          font-size: 44px;
-          font-weight: 700;
-          margin-bottom: var(--spacing-md);
-          line-height: 1.2;
-        }
-
-        .section-header p {
-          font-size: 18px;
-          color: var(--color-text-light);
-          max-width: 600px;
-          margin: 0 auto;
-        }
-
-        /* Products Section */
-        .products {
-          background-color: #f9fafb;
-        }
-
-        .products-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: var(--spacing-2xl);
-        }
-
-        .product-card {
-          background: white;
-          padding: var(--spacing-2xl);
-          border-radius: 12px;
-          border: 1px solid var(--color-border);
-          transition: var(--transition);
-        }
-
-        .product-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-icon {
-          font-size: 40px;
-          margin-bottom: var(--spacing-md);
-        }
-
-        .product-card h3 {
-          font-size: 20px;
-          font-weight: 600;
-          margin-bottom: var(--spacing-md);
-        }
-
-        .product-card p {
-          color: var(--color-text-light);
-          font-size: 15px;
-          line-height: 1.7;
-          margin-bottom: var(--spacing-md);
-        }
-
-        .price {
-          font-size: 24px;
-          font-weight: 700;
-          color: var(--color-secondary);
-          margin-bottom: var(--spacing-md);
-        }
-
-        .price-subtext {
-          color: var(--color-text-light);
-          font-size: 13px;
-        }
-
-        /* Features Section */
-        .features {
-          background-color: white;
-        }
-
-        .features-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: var(--spacing-2xl);
-        }
-
-        .feature-card {
-          padding: var(--spacing-2xl);
-          border-radius: 12px;
-          background: linear-gradient(135deg, #f0f9ff 0%, #f5f3ff 100%);
-          border: 1px solid var(--color-border);
-        }
-
-        .feature-card h3 {
-          font-size: 20px;
-          font-weight: 600;
-          margin-bottom: var(--spacing-md);
-          color: var(--color-primary);
-        }
-
-        .feature-card p {
-          color: var(--color-text-light);
-          line-height: 1.7;
-        }
-
-        /* Stats Section */
-        .stats {
-          background: linear-gradient(135deg, var(--color-primary) 0%, #374151 100%);
-          color: white;
-        }
-
-        .stats-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: var(--spacing-3xl);
-        }
-
-        .stat-item h4 {
-          font-size: 36px;
-          font-weight: 700;
-          margin-bottom: var(--spacing-sm);
-        }
-
-        .stat-item p {
-          font-size: 16px;
-          opacity: 0.95;
-          font-weight: 300;
-        }
-
-        /* CTA Section */
-        .cta {
-          background: linear-gradient(135deg, var(--color-secondary) 0%, #4f46e5 100%);
-          color: white;
-          text-align: center;
-        }
-
-        .cta h2 {
-          font-size: 44px;
-          font-weight: 700;
-          margin-bottom: var(--spacing-lg);
-        }
-
-        .cta p {
-          font-size: 18px;
-          margin-bottom: var(--spacing-2xl);
-          opacity: 0.95;
-        }
-
-        /* Footer */
-        footer {
-          background-color: var(--color-primary);
-          color: white;
-          padding: var(--spacing-3xl) var(--spacing-lg);
-        }
-
-        .footer-content {
-          max-width: 1400px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: var(--spacing-2xl);
-          margin-bottom: var(--spacing-2xl);
-        }
-
-        .footer-section h4 {
-          font-weight: 600;
-          margin-bottom: var(--spacing-md);
-        }
-
-        .footer-section a {
-          color: rgba(255, 255, 255, 0.8);
-          text-decoration: none;
-          font-size: 14px;
-          display: block;
-          margin-bottom: var(--spacing-sm);
-          transition: var(--transition);
-        }
-
-        .footer-section a:hover {
-          color: white;
-        }
-
-        .footer-bottom {
-          text-align: center;
-          padding-top: var(--spacing-2xl);
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-          font-size: 14px;
-          opacity: 0.8;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-          .header-container {
-            padding: var(--spacing-sm) var(--spacing-md);
-          }
-
-          nav {
-            display: none;
-          }
-
-          .hero {
-            margin-top: 50px;
-            height: 80vh;
-          }
-
-          .hero h1 {
-            font-size: 36px;
-          }
-
-          .hero p {
-            font-size: 16px;
-          }
-
-          .section-header h2 {
-            font-size: 32px;
-          }
-
-          .products-grid,
-          .features-grid,
-          .stats-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .hero-buttons {
-            flex-direction: column;
-          }
-
-          .btn {
-            width: 100%;
-          }
-        }
-      `}</style>
-
+    <div className="min-h-screen bg-white text-gray-900">
       {/* Header */}
-      <header>
-        <div className="header-container">
-          <a href="#" className="logo">Square</a>
-          <nav>
-            <a href="#products">Products</a>
-            <a href="#features">Features</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#about">About</a>
-            <button className="btn btn-primary">Get Started</button>
+      <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-xl z-50 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <a href="#" className="text-2xl font-bold text-gray-900 tracking-tight">Square</a>
+          <nav className="hidden md:flex gap-12 items-center">
+            <a href="#products" className="text-sm font-medium text-gray-900 hover:text-indigo-600 transition">Products</a>
+            <a href="#features" className="text-sm font-medium text-gray-900 hover:text-indigo-600 transition">Features</a>
+            <a href="#pricing" className="text-sm font-medium text-gray-900 hover:text-indigo-600 transition">Pricing</a>
+            <a href="#about" className="text-sm font-medium text-gray-900 hover:text-indigo-600 transition">About</a>
+            <button className="px-6 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition transform hover:-translate-y-0.5 shadow-lg hover:shadow-lg">
+              Get Started
+            </button>
           </nav>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="hero">
-        <video className="hero-video" autoPlay muted loop playsInline>
+      <section className="relative h-screen flex items-center justify-center overflow-hidden mt-16">
+        <video className="absolute top-0 left-0 w-full h-full object-cover z-10" autoPlay muted loop playsInline>
           <source src="https://pw-assets-production-c.squarecdn.com/video/5mObdhW0r5D0lyp3iVJFA6/b4d81931-7cfa-4402-bb41-efc4126e3f95-en-ee526a6b-3ca3-4ae5-9bc2-be60cb21229f-en-Homepage_Edit-updated.webm" type="video/webm" />
           Your browser does not support the video tag.
         </video>
-        <div className="hero-overlay"></div>
-        <div className="hero-content">
-          <h1>Power your entire business</h1>
-          <p>Everything you need to run your business in one place. From payments to payroll, Square has you covered.</p>
-          <div className="hero-buttons">
-            <button className="btn btn-light">Start Free Trial</button>
-            <button className="btn btn-secondary" style={{ color: 'white', borderColor: 'white' }}>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gray-900/40 to-gray-900/20 z-20"></div>
+        <div className="relative z-30 text-center text-white max-w-2xl px-6">
+          <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">Power your entire business</h1>
+          <p className="text-xl md:text-2xl mb-12 font-light opacity-95">Everything you need to run your business in one place. From payments to payroll, Square has you covered.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+            <button className="px-8 py-3 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-100 transition transform hover:-translate-y-0.5 shadow-xl hover:shadow-2xl">
+              Start Free Trial
+            </button>
+            <button className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition">
               Watch Demo
             </button>
           </div>
@@ -609,26 +181,26 @@ export default function SquareLanding() {
       </section>
 
       {/* Products Section */}
-      <section className="products" id="products">
-        <div className="section-container">
-          <div className="section-header">
-            <h2>Smooth checkout, every time</h2>
-            <p>Choose from a range of sleek options for however you do business. All equally easy to use.</p>
+      <section className="py-24 px-6 bg-gray-50" id="products">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 leading-tight">Smooth checkout, every time</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Choose from a range of sleek options for however you do business. All equally easy to use.</p>
           </div>
-          <div className="products-grid">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {products.map((product) => (
               <div
                 key={product.id}
-                className="product-card"
+                className="bg-white p-8 rounded-2xl border border-gray-200 transition transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
                 onMouseEnter={() => setHoveredProduct(product.id)}
                 onMouseLeave={() => setHoveredProduct(null)}
               >
-                <div className="product-icon">{product.icon}</div>
-                <h3>{product.title}</h3>
-                <div className="price">{product.price}</div>
-                <p className="price-subtext">{product.priceSubtext}</p>
-                <p>{product.description}</p>
-                <button className="btn btn-primary" style={{ width: '100%' }}>
+                <div className="text-4xl mb-4">{product.icon}</div>
+                <h3 className="text-xl font-semibold mb-4 text-gray-900">{product.title}</h3>
+                <div className="text-3xl font-bold text-indigo-600 mb-2">{product.price}</div>
+                <p className="text-sm text-gray-600 mb-4">{product.priceSubtext}</p>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">{product.description}</p>
+                <button className="w-full px-4 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">
                   Learn More
                 </button>
               </div>
@@ -638,17 +210,17 @@ export default function SquareLanding() {
       </section>
 
       {/* Features Section */}
-      <section className="features" id="features">
-        <div className="section-container">
-          <div className="section-header">
-            <h2>See your whole business click into place</h2>
-            <p>Comprehensive tools to manage every aspect of your business.</p>
+      <section className="py-24 px-6 bg-white" id="features">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 leading-tight">See your whole business click into place</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Comprehensive tools to manage every aspect of your business.</p>
           </div>
-          <div className="features-grid">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature) => (
-              <div key={feature.id} className="feature-card">
-                <h3>{feature.title}</h3>
-                <p>{feature.description}</p>
+              <div key={feature.id} className="p-8 rounded-2xl bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 border border-gray-200">
+                <h3 className="text-xl font-semibold mb-4 text-gray-900">{feature.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -656,13 +228,13 @@ export default function SquareLanding() {
       </section>
 
       {/* Stats Section */}
-      <section className="stats">
-        <div className="section-container">
-          <div className="stats-grid">
+      <section className="py-24 px-6 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
             {stats.map((stat) => (
-              <div key={stat.id} className="stat-item">
-                <h4>{stat.number}</h4>
-                <p>{stat.description}</p>
+              <div key={stat.id}>
+                <h4 className="text-5xl font-bold mb-2">{stat.number}</h4>
+                <p className="text-lg opacity-95 font-light">{stat.description}</p>
               </div>
             ))}
           </div>
@@ -670,40 +242,34 @@ export default function SquareLanding() {
       </section>
 
       {/* CTA Section */}
-      <section className="cta">
-        <div className="section-container">
-          <h2>Ready to transform your business?</h2>
-          <p>Join thousands of businesses already using Square to grow and succeed.</p>
-          <button
-            className="btn btn-light"
-            style={{
-              backgroundColor: 'white',
-              color: '#6366f1',
-              padding: '12px 40px',
-              fontSize: '16px',
-            }}
-          >
+      <section className="py-24 px-6 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white text-center">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">Ready to transform your business?</h2>
+          <p className="text-xl mb-10 opacity-95">Join thousands of businesses already using Square to grow and succeed.</p>
+          <button className="px-10 py-4 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-100 transition transform hover:-translate-y-0.5 text-lg shadow-xl">
             Start Your Free Trial
           </button>
         </div>
       </section>
 
       {/* Footer */}
-      <footer>
-        <div className="footer-content">
-          {footerSections.map((section, index) => (
-            <div key={index} className="footer-section">
-              <h4>{section.title}</h4>
-              {section.links.map((link, linkIndex) => (
-                <a key={linkIndex} href="#">
-                  {link}
-                </a>
-              ))}
-            </div>
-          ))}
-        </div>
-        <div className="footer-bottom">
-          <p>&copy; 2026 Square, Inc. All rights reserved. | Privacy | Terms | Accessibility</p>
+      <footer className="bg-gray-900 text-white py-16 px-6">
+        <div className="max-w-7xl mx-auto mb-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+            {footerSections.map((section, index) => (
+              <div key={index}>
+                <h4 className="font-semibold mb-4 text-white">{section.title}</h4>
+                {section.links.map((link, linkIndex) => (
+                  <a key={linkIndex} href="#" className="text-gray-400 text-sm hover:text-white transition block mb-3">
+                    {link}
+                  </a>
+                ))}
+              </div>
+            ))}
+          </div>
+          <div className="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
+            <p>&copy; 2026 Square, Inc. All rights reserved. | Privacy | Terms | Accessibility</p>
+          </div>
         </div>
       </footer>
     </div>
