@@ -16,11 +16,23 @@ interface Product {
 interface Feature {
   id: number;
   title: string;
-  subtitle: string;
+  description: string;
+  subtitle?: string;
   image?: string;
   video?: string;
-  colSpan: string;
-  theme: 'dark' | 'light';
+  colSpan?: string;
+  theme?: 'dark' | 'light';
+}
+
+interface FooterSection {
+  title: string;
+  links: string[];
+}
+
+interface Stat {
+  id: number;
+  number: string;
+  description: string;
 }
 
 export default function SquareLanding() {
@@ -207,7 +219,7 @@ export default function SquareLanding() {
             </button>
           </nav>
         </div>
-      </nav>
+      </header>
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden mt-16">
@@ -310,13 +322,13 @@ export default function SquareLanding() {
                 <p className="text-gray-600 leading-relaxed">
                   {feature.description}
                 </p>
-              </div>
+              </div>))}
               
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/20 rounded-full blur-[100px] pointer-events-none"></div>
             </div>
 
           </div>
-        </div>
+        {/* </div> */}
       </section>
 
       {/* Stats Section */}
