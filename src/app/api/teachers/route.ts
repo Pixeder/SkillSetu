@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { requireAuth } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
@@ -10,9 +11,24 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '12');
 
+    // --- AUTH CHECK (Optional) ---
+    // We try to get the current user ID to exclude them from the list.
+    // If auth fails (guest user), we just proceed with userId = null.
+    let currentUserId: string | null = null;
+    try {
+      const user = requireAuth(request);
+      currentUserId = user.userId;
+    } catch (e) {
+      // User is not logged in, ignore error
+    }
+
     // Build Where Clause
     const where: any = {
       role: { in: ['TEACHER', 'BOTH'] }, // Only fetch teachers
+      
+      // EXCLUDE SELF: If logged in, don't show my own profile
+      ...(currentUserId && { id: { not: currentUserId } }),
+
       // 1. Search Logic (Name, Bio, or Skills)
       OR: query ? [
         { name: { contains: query, mode: 'insensitive' } },
@@ -53,13 +69,13 @@ export async function GET(request: NextRequest) {
         },
         skip: (page - 1) * limit,
         take: limit,
-        // Default sort: Verified teachers first, then by rating (mock logic if needed)
+        // Default sort: Verified teachers first
         orderBy: { verified: 'desc' } 
       }),
       prisma.user.count({ where })
     ]);
 
-    // 4. Calculate Average Ratings (Manual aggregation needed per teacher)
+    // 4. Calculate Average Ratings
     const teachersWithStats = await Promise.all(
       teachers.map(async (t) => {
         const aggregations = await prisma.review.aggregate({

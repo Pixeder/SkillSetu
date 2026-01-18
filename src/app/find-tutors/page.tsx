@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
   Search, MapPin, Star, ArrowRight, Loader2, 
-  Filter, SlidersHorizontal, DollarSign 
+  SlidersHorizontal, DollarSign 
 } from 'lucide-react';
 
 // --- Types ---
@@ -40,7 +40,19 @@ export default function FindTutorsPage() {
         const params = new URLSearchParams();
         if (debouncedQuery) params.append('query', debouncedQuery);
         
-        const res = await fetch(`/api/teachers?${params.toString()}`);
+        // --- AUTH LOGIC START ---
+        // Retrieve token to identify current user
+        const token = localStorage.getItem('token');
+        const headers: HeadersInit = {
+          'Content-Type': 'application/json',
+        };
+        // Only attach Authorization if token exists
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+        // --- AUTH LOGIC END ---
+
+        const res = await fetch(`/api/teachers?${params.toString()}`, { headers });
         const data = await res.json();
         setTeachers(data.teachers || []);
       } catch (error) {
@@ -77,7 +89,7 @@ export default function FindTutorsPage() {
               />
             </div>
 
-            {/* Filter Buttons (Visual Only for MVP) */}
+            {/* Filter Buttons (Visual Only) */}
             <div className="flex gap-2 w-full md:w-auto overflow-x-auto">
               <button className="px-4 py-3 border border-gray-200 rounded-xl font-bold text-sm hover:border-black flex items-center gap-2 whitespace-nowrap bg-white">
                 <SlidersHorizontal size={16} /> Filters
@@ -200,7 +212,6 @@ function TeacherCard({ teacher }: { teacher: Teacher }) {
           </div>
         </div>
         
-        {/* Note: This button would link to a detailed profile page */}
         <Link href={`/tutors/${teacher.id}`} className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center group-hover:scale-110 transition-transform">
           <ArrowRight size={20} />
         </Link>
